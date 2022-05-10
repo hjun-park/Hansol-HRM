@@ -1,0 +1,56 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.hansol'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// mysql DB
+	runtimeOnly('mysql:mysql-connector-java') //mysql8
+
+	// spring template
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Bean Validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// spring boot starter
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// related to test
+	implementation('org.springframework.boot:spring-boot-devtools')
+
+	// p6spy
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+
+	// @ConfigureProperties를 사용하기 위해 추가
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+	// 로그 처리 시 조건 추가
+	implementation 'org.codehaus.janino:janino:3.0.12'
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
