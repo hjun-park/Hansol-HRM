@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hansol.hrm.service.base.domain.BaseMapper">
+
+    <select id="getAllDataList" resultType="com.hansol.hrm.service.base.domain.BaseEntity">
+        SELECT *
+        FROM Base
+        WHERE 1 = 1;
+    </select>
+
+    <select id="getOne" resultType="com.hansol.hrm.service.base.domain.BaseEntity">
+        SELECT *
+        FROM Base
+        WHERE id = #{id};
+    </select>
+
+    <select id="searchOne" resultType="com.hansol.hrm.service.base.domain.BaseEntity">
+        SELECT * FROM Base WHERE 1=1
+        <if test="name != null and name != ''">
+            AND NAME = #{name}
+        </if>
+        <if test="comment != null and comment != ''">
+            AND comment LIKE '%' || #{comment} || '%'
+        </if>
+
+    </select>
+
+
+    <insert id="insertOne" parameterType="com.hansol.hrm.service.base.domain.BaseEntity">
+        INSERT INTO Base(name, comment)
+        values (#{name}, #{comment})
+    </insert>
+
+    <update id="updateOne" parameterType="com.hansol.hrm.service.base.domain.BaseEntity">
+        UPDATE Base
+        <set>
+            <if test="name != null and name != ''">name=#{name}</if>
+            <if test="comment != null and comment != ''">comment=#{comment}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteOne">
+        DELETE
+        FROM Base
+        WHERE id = #{id}
+    </delete>
+
+
+</mapper>
