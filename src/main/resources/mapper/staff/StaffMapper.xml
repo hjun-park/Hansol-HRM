@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hansol.hrm.service.staff.domain.StaffMapper">
+
+
+    <select id="findAll" resultType="com.hansol.hrm.service.staff.domain.StaffEntity">
+        SELECT *
+        FROM staff
+        WHERE status = 'USED';
+    </select>
+
+    <select id="findById" resultType="com.hansol.hrm.service.staff.domain.StaffEntity">
+        SELECT *
+        FROM staff
+        WHERE id = #{staffId}
+          AND status = 'USED';
+    </select>
+
+    <select id="findByName" resultType="com.hansol.hrm.service.staff.domain.StaffEntity">
+        SELECT *
+        FROM staff
+        WHERE name = #{name}
+          AND status = 'USED';
+    </select>
+
+    <insert id="insertOne" parameterType="com.hansol.hrm.service.staff.domain.StaffEntity">
+        INSERT INTO staff(name, phone_number, type, task_id, position_id)
+        values (#{name}, #{phone_number}, #{type}, #{taskId}, #{positionId})
+    </insert>
+
+    <update id="updateOne">
+        UPDATE staff
+        SET
+        status = 'USED'
+        <if test="staffEntity.name != null and staffEntity.name != ''">,name=#{staffEntity.name}</if>
+        <if test="staffEntity.phone_number != null and staffEntity.phone_number != ''">,phone_number=#{staffEntity.phoneNumber}</if>
+        <if test="staffEntity.type != null and !staffEntity.type.equals('')">,type=#{staffEntity.type}</if>
+        <if test="staffEntity.taskId != null and staffEntity.taskId != ''">,task_id=#{staffEntity.taskId}</if>
+        <if test="staffEntity.positionId != null and staffEntity.positionId != ''">,position_id=#{staffEntity.positionId}</if>
+        WHERE id = #{staffId}
+    </update>
+
+    <update id="statusToDelete" parameterType="Long">
+        UPDATE staff
+        SET status = 'DELETED'
+        WHERE id = #{staffId}
+    </update>
+
+</mapper>
