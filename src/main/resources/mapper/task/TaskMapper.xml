@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hansol.hrm.service.task.domain.TaskMapper">
+
+
+    <select id="findAll" resultType="com.hansol.hrm.service.task.domain.Task">
+        SELECT *
+        FROM task
+    </select>
+
+    <select id="findBy" resultType="com.hansol.hrm.service.task.domain.Task" parameterType="Long">
+        SELECT *
+        FROM task
+        WHERE id = #{taskId}
+    </select>
+
+    <select id="findByString" resultType="com.hansol.hrm.service.task.domain.Task">
+        SELECT *
+        FROM task
+        <where>
+            <choose>
+                <when test="name != null and !name.equals('')">
+                    AND name=#{name}
+                </when>
+                <when test="code != null and !code.equals('')">
+                    AND code=#{code}
+                </when>
+<!--                <otherwise></otherwise>-->
+            </choose>
+        </where>
+    </select>
+
+    <insert id="insertOne" parameterType="com.hansol.hrm.service.task.domain.Task" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+        INSERT INTO task(name, code)
+        values (#{name}, #{code})
+    </insert>
+
+    <update id="updateOne">
+        UPDATE task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskEntity.name != null and !taskEntity.name.equals('')">name=#{taskEntity.name},</if>
+            <if test="taskEntity.code != null and !taskEntity.code.equals('')">code=#{taskEntity.code},</if>
+        </trim>
+        WHERE id = #{taskId}
+    </update>
+
+    <update id="deleteOne" parameterType="Long">
+        DELETE
+        FROM task
+        WHERE id = #{taskId}
+    </update>
+
+</mapper>
