@@ -19,6 +19,7 @@ import com.hansol.hrm.global.exception.BaseException;
 import com.hansol.hrm.service.staff.domain.Staff;
 import com.hansol.hrm.service.staff.domain.StaffMapper;
 import com.hansol.hrm.service.staff.dto.StaffDto;
+import com.hansol.hrm.service.staff.dto.StaffRes;
 
 @SpringBootTest
 // @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -41,7 +42,7 @@ class StaffServiceImplTest {
 
 		//when
 		List<Staff> staffEntities = staffMapper.findAll();
-		List<StaffDto> staffDtoList = staffService.findStaffs();
+		List<StaffRes> staffDtoList = staffService.findStaffs();
 
 		//then
 		assertEquals(staffEntities.size(), staffDtoList.size());
@@ -115,7 +116,7 @@ class StaffServiceImplTest {
 
 		//when
 		Long staffId = staffService.addStaff(staffDto);
-		StaffDto staffById = staffService.findStaffById(staffId);
+		StaffRes staffById = staffService.findStaffById(staffId);
 
 		//then
 		assertEquals(staffId, staffById.getId());
@@ -135,12 +136,14 @@ class StaffServiceImplTest {
 			.taskId(16L)
 			.build();
 
+		StaffDto changeStaffDto = StaffDto.builder()
+			.name("테스트유저123")
+			.build();
+
 		Long staffId = staffService.addStaff(staffDto);
-		StaffDto findDto = staffService.findStaffById(staffId);
 
 		//when
-		findDto.setName("테스트유저123");
-		staffService.editStaff(findDto.getId(), findDto);
+		staffService.editStaff(staffId, changeStaffDto);
 
 		//then
 		Staff staffEntity = staffMapper.findById(staffId);
@@ -168,7 +171,7 @@ class StaffServiceImplTest {
 			.build();
 
 		Long staffId = staffService.addStaff(staffDto);
-		StaffDto findDto = staffService.findStaffById(staffId);
+		StaffRes findDto = staffService.findStaffById(staffId);
 
 		//when
 		staffService.statusToDeleteStaff(findDto.getId());
