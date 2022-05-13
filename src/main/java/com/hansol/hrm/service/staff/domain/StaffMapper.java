@@ -10,16 +10,16 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface StaffMapper {
 
-	List<StaffEntity> findAll();
+	List<Staff> findAll();
 
-	Long insertOne(StaffEntity staffEntity);
+	Long insertOne(Staff staffEntity);
 
-	Long updateOne(@Param("staffId") Long staffId, @Param("staffEntity") StaffEntity staffEntity);
+	Long updateOne(@Param("staffId") Long staffId, @Param("staffEntity") Staff staffEntity);
 
 	Long statusToDelete(Long staffId);
 
-	StaffEntity findById(Long staffId);
+	Staff findById(Long staffId);
 
-	StaffEntity findByName(String name);
+	List<Staff> findByName(String name);
 
 }

@@ -1,5 +1,7 @@
 package com.hansol.hrm.service.staff.dto;
 
+import com.hansol.hrm.service.staff.domain.Staff;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,7 +10,7 @@ public class StaffDto {
 
 	private Long id;
 	private String name;
-	private String phone_number;
+	private String phoneNumber;
 	private String type;
 	private Long taskId;
 	private Long positionId;
@@ -17,10 +19,10 @@ public class StaffDto {
 	}
 
 	@Builder
-	public StaffDto(Long id, String name, String phone_number, String type, Long taskId, Long positionId) {
+	public StaffDto(Long id, String name, String phoneNumber, String type, Long taskId, Long positionId) {
 		this.id = id;
 		this.name = name;
-		this.phone_number = phone_number;
+		this.phoneNumber = phoneNumber;
 		this.type = type;
 		this.taskId = taskId;
 		this.positionId = positionId;
@@ -28,5 +30,16 @@ public class StaffDto {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public static StaffDto convertEntityToDto(Staff staffEntity) {
+		return StaffDto.builder()
+			.id(staffEntity.getId())
+			.name(staffEntity.getName())
+			.phoneNumber(staffEntity.getPhoneNumber())
+			.type(staffEntity.getType())
+			.taskId(staffEntity.getTaskId())
+			.positionId(staffEntity.getPositionId())
+			.build();
 	}
 }

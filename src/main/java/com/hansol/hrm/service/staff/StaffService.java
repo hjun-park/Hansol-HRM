@@ -8,13 +8,13 @@ import com.hansol.hrm.service.staff.dto.StaffDto;
 public interface StaffService {
 
 	// 직원 전체 조회
-	Optional<List<StaffDto>> findStaffs();
+	List<StaffDto> findStaffs();
 
 	// ID로 직원 조회
-	Optional<StaffDto> findStaffById(Long staffId);
+	StaffDto findStaffById(Long staffId);
 
 	// 이름으로 직원 조회
-	Optional<StaffDto> findStaffByName(String name);
+	List<StaffDto> findStaffsByName(String name);
 
 	// 직원 등록
 	Long addStaff(StaffDto staffDto);

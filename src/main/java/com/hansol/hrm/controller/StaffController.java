@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/staffs")
+@RequestMapping("/staffs") // /swagger-ui/index.html
 public class StaffController {
 
 	private final StaffService staffService;
@@ -39,8 +39,19 @@ public class StaffController {
 	})
 	@GetMapping
 	public BaseResponse<List<StaffDto>> getStaffs() {
-		return new BaseResponse<>(staffService.findStaffs().orElseGet(Collections::emptyList));
+		return new BaseResponse<>(staffService.findStaffs());
 	}
+
+	@Operation(summary = "특정 ID 직원 조회")
+	@ApiResponses({
+		@ApiResponse(responseCode = "1000", description = "성공"),
+		@ApiResponse(responseCode = "3003", description = "존재하지 않는 직원 ID")
+	})
+	@GetMapping("/{staffId}")
+	public BaseResponse<StaffDto> getStaffById(@PathVariable Long staffId) {
+		return new BaseResponse<>(staffService.findStaffById(staffId));
+	}
+
 
 	@Operation(summary = "직원 등록")
 	@ApiResponses({

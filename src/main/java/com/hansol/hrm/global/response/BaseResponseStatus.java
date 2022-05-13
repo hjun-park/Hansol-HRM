@@ -33,7 +33,7 @@ public enum BaseResponseStatus {
 	RESPONSE_ERROR(false, 3000, "값을 불러오는데 실패하였습니다."),
 	RESPONSE_EMPTY(false, 3001, "조회할 정보가 없습니다."),
 	DELETE_EMPTY(false, 3002, "삭제할 정보가 없습니다."),
-	STAFF_EMPTY(false, 3003, "존재하지 않는 회원입니다."),
+	STAFF_EMPTY(false, 3003, "존재하지 않는 직원입니다."),
 
 	/**
 	 * 4000 : Database, Server 오류
