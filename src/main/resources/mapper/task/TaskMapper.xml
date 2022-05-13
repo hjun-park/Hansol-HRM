@@ -48,10 +48,10 @@
         WHERE id = #{taskId}
     </update>
 
-    <update id="deleteOne" parameterType="Long">
+    <delete id="deleteOne" parameterType="Long">
         DELETE
         FROM task
         WHERE id = #{taskId}
-    </update>
+    </delete>
 
 </mapper>
