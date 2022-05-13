@@ -1,20 +1,20 @@
 package com.hansol.hrm.service.staff;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.hansol.hrm.service.staff.dto.StaffDto;
+import com.hansol.hrm.service.staff.dto.StaffRes;
 
 public interface StaffService {
 
 	// 직원 전체 조회
-	List<StaffDto> findStaffs();
+	List<StaffRes> findStaffs();
 
 	// ID로 직원 조회
-	StaffDto findStaffById(Long staffId);
+	StaffRes findStaffById(Long staffId);
 
 	// 이름으로 직원 조회
-	List<StaffDto> findStaffsByName(String name);
+	List<StaffRes> findStaffsByName(String name);
 
 	// 직원 등록
 	Long addStaff(StaffDto staffDto);
