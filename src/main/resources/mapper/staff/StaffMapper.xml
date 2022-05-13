@@ -5,11 +5,10 @@
 
 <mapper namespace="com.hansol.hrm.service.staff.domain.StaffMapper">
 
-
     <select id="findAll" resultType="com.hansol.hrm.service.staff.domain.Staff">
         SELECT *
         FROM staff
-        WHERE status = 'USED';
+        WHERE status = 'USED'
     </select>
 
     <select id="findById" resultType="com.hansol.hrm.service.staff.domain.Staff">
@@ -49,5 +48,36 @@
         SET status = 'DELETED'
         WHERE id = #{staffId}
     </update>
+
+
+<!--    &lt;!&ndash; 타입별 검색 쿼리 (이름, 전화번호, 업무 종류)&ndash;&gt;-->
+<!--    <select id="search" resultType="com.hansol.hrm.service.staff.domain.Staff">-->
+<!--        SELECT *-->
+<!--        FROM staff-->
+<!--        <where>-->
+<!--            <if test="searchType == 'N'">-->
+<!--                name LIKE CONCAT('%', #{_str}, '%')-->
+<!--            </if>-->
+<!--            <if test="searchType == 'P'">-->
+<!--                phone_number LIKE CONCAT('%', #{_str}, '%')-->
+<!--            </if>-->
+<!--            <if test="searchType == 'T'">-->
+<!--                type LIKE CONCAT('%', #{_str}, '%')-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash; 필터링 (회사, 직무(업무), 직급) &ndash;&gt;-->
+<!--    <select id="filter" resultType="com.hansol.hrm.service.staff.domain.Staff">-->
+<!--        SELECT s.id, s.name, s.phone_number, s.type, s.task_id, s.position_id-->
+<!--        FROM staff s-->
+<!--            <if test="filterType == 'C'">-->
+<!--                 LEFT JOIN positions p ON s.position_id = p.id-->
+<!--            </if>-->
+<!--        WHERE p.id = 1;-->
+<!--    </select>-->
+
+    <!-- 기간 검색 -->
+
 
 </mapper>

@@ -12,9 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hansol.hrm.global.exception.BaseException;
+import com.hansol.hrm.service.position.PositionService;
+import com.hansol.hrm.service.position.dto.PositionDto;
 import com.hansol.hrm.service.staff.domain.Staff;
 import com.hansol.hrm.service.staff.domain.StaffMapper;
 import com.hansol.hrm.service.staff.dto.StaffDto;
+import com.hansol.hrm.service.staff.dto.StaffRes;
+import com.hansol.hrm.service.task.TaskService;
+import com.hansol.hrm.service.task.dto.TaskDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,46 +28,45 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional(readOnly = true)
 public class StaffServiceImpl implements StaffService {
 
+	private final TaskService taskService;
+	private final PositionService positionService;
 	private final StaffMapper staffMapper;
 
-	public StaffServiceImpl(StaffMapper staffMapper) {
+	public StaffServiceImpl(TaskService taskService, PositionService positionService,
+		StaffMapper staffMapper) {
+		this.taskService = taskService;
+		this.positionService = positionService;
 		this.staffMapper = staffMapper;
 	}
 
 	@Override
-	public List<StaffDto> findStaffs() {
+	public List<StaffRes> findStaffs() {
 		Optional<List<Staff>> optionalStaffEntities = Optional.ofNullable(staffMapper.findAll());
-		List<Staff> staffEntities = optionalStaffEntities.orElseGet(Collections::emptyList);
+		List<Staff> staffList = optionalStaffEntities.orElseGet(Collections::emptyList);
 
-		return staffEntities.stream()
-			.map(StaffDto::convertEntityToDto)
+		return staffList.stream()
+			.map(this::convertEntityToDto)
 			.collect(Collectors.toList());
+
 	}
 
 	@Override
-	public StaffDto findStaffById(Long staffId) {
+	public StaffRes findStaffById(Long staffId) {
 
 		Optional<Staff> findEntity = Optional.ofNullable(staffMapper.findById(staffId));
-		Staff staffEntity = findEntity.orElseThrow(() -> new BaseException(STAFF_EMPTY));
+		Staff staff = findEntity.orElseThrow(() -> new BaseException(STAFF_EMPTY));
 
-		return StaffDto.builder()
-			.id(staffEntity.getId())
-			.name(staffEntity.getName())
-			.phoneNumber(staffEntity.getPhoneNumber())
-			.type(staffEntity.getType())
-			.taskId(staffEntity.getTaskId())
-			.positionId(staffEntity.getPositionId())
-			.build();
+		return convertEntityToDto(staff);
 	}
 
 	@Override
-	public List<StaffDto> findStaffsByName(String name) {
+	public List<StaffRes> findStaffsByName(String name) {
 
 		Optional<List<Staff>> findEntities = Optional.ofNullable(staffMapper.findByName(name));
-		List<Staff> staffEntities = findEntities.orElseGet(Collections::emptyList);
+		List<Staff> staffList = findEntities.orElseGet(Collections::emptyList);
 
-		return staffEntities.stream()
-			.map(StaffDto::convertEntityToDto)
+		return staffList.stream()
+			.map(this::convertEntityToDto)
 			.collect(Collectors.toList());
 	}
 
@@ -102,5 +106,20 @@ public class StaffServiceImpl implements StaffService {
 			throw new BaseException(DELETE_ERROR);
 		}
 
+	}
+
+	private StaffRes convertEntityToDto(Staff staff) {
+
+		String task = taskService.findTaskBy(staff.getTaskId()).getName();
+		String position = positionService.findPositionBy(staff.getPositionId()).getName();
+
+		return StaffRes.builder()
+			.id(staff.getId())
+			.name(staff.getName())
+			.phoneNumber(staff.getPhoneNumber())
+			.type(staff.getType())
+			.task(task)
+			.position(position)
+			.build();
 	}
 }

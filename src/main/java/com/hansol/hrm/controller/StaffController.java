@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hansol.hrm.global.response.BaseResponse;
 import com.hansol.hrm.service.staff.StaffService;
 import com.hansol.hrm.service.staff.dto.StaffDto;
+import com.hansol.hrm.service.staff.dto.StaffRes;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -38,7 +39,7 @@ public class StaffController {
 		@ApiResponse(responseCode = "1000", description = "성공")
 	})
 	@GetMapping
-	public BaseResponse<List<StaffDto>> getStaffs() {
+	public BaseResponse<List<StaffRes>> getStaffs() {
 		return new BaseResponse<>(staffService.findStaffs());
 	}
 
@@ -48,7 +49,7 @@ public class StaffController {
 		@ApiResponse(responseCode = "3003", description = "존재하지 않는 직원 ID")
 	})
 	@GetMapping("/{staffId}")
-	public BaseResponse<StaffDto> getStaffById(@PathVariable Long staffId) {
+	public BaseResponse<StaffRes> getStaffById(@PathVariable Long staffId) {
 		return new BaseResponse<>(staffService.findStaffById(staffId));
 	}
 
