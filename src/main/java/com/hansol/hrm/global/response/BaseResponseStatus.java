@@ -22,9 +22,11 @@ public enum BaseResponseStatus {
 
 	// Common 형식 관련: 2100~
 	INVALID_EMAIL(false, 2101, "올바른 이메일 형식을 입력해주세요."),
+	DUPLICATED_VALUE(false, 2102, "중복된 값이 존재합니다."),
 
 	// [POST] null 관련: 2200~
 	POST_EMPTY(false, 2200, "필수 요소를 모두 확인해주세요."),
+
 
 	/**
 	 * 3000 : Response 오류
