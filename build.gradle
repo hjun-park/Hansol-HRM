@@ -48,6 +48,13 @@ dependencies {
 	// 로그 처리 시 조건 추가
 	implementation 'org.codehaus.janino:janino:3.0.12'
 
+	// mybatis
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+
+	// swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
 
 }
 
