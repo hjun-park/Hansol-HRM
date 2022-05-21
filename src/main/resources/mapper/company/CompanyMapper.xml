@@ -3,27 +3,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hansol.hrm.service.company.domain.CompanyMapper">
+<mapper namespace="com.hansol.hrm.company.domain.CompanyMapper">
 
 
-    <select id="findAll" resultType="com.hansol.hrm.service.company.domain.Company">
+    <select id="findAll" resultType="com.hansol.hrm.company.domain.Company">
         SELECT *
         FROM company
     </select>
 
-    <select id="findBy" resultType="com.hansol.hrm.service.company.domain.Company" parameterType="Long">
+    <select id="findBy" resultType="com.hansol.hrm.company.domain.Company" parameterType="Long">
         SELECT *
         FROM company
         WHERE id = #{companyId}
     </select>
 
-    <select id="findByName" resultType="com.hansol.hrm.service.company.domain.Company">
+    <select id="findByName" resultType="com.hansol.hrm.company.domain.Company">
         SELECT *
         FROM company
         WHERE name LIKE CONCAT('%', #{name}, '%')
     </select>
 
-    <insert id="insertOne" parameterType="com.hansol.hrm.service.company.domain.Company" useGeneratedKeys="true"
+    <insert id="insertOne" parameterType="com.hansol.hrm.company.domain.Company" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
         INSERT INTO company(name)
         values (#{name})

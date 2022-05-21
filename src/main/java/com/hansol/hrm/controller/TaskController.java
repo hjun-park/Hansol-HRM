@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hansol.hrm.global.response.BaseResponse;
-import com.hansol.hrm.service.staff.StaffService;
-import com.hansol.hrm.service.staff.dto.StaffDto;
-import com.hansol.hrm.service.task.TaskService;
-import com.hansol.hrm.service.task.dto.TaskDto;
+import com.hansol.hrm.task.service.TaskService;
+import com.hansol.hrm.task.dto.TaskDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

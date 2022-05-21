@@ -1,6 +1,5 @@
 package com.hansol.hrm.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,12 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hansol.hrm.global.response.BaseResponse;
-import com.hansol.hrm.service.staff.StaffService;
-import com.hansol.hrm.service.staff.dto.StaffDto;
-import com.hansol.hrm.service.staff.dto.StaffRes;
+import com.hansol.hrm.staff.service.StaffService;
+import com.hansol.hrm.staff.domain.StaffSearch;
+import com.hansol.hrm.staff.dto.StaffDto;
+import com.hansol.hrm.staff.dto.StaffRes;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -83,5 +84,27 @@ public class StaffController {
 	public BaseResponse<Long> statusToDeleteStaff(@PathVariable Long staffId) {
 		return new BaseResponse<>(staffService.statusToDeleteStaff(staffId));
 	}
+
+	@Operation(summary = "직원 필터 검색")
+	@ApiResponses({
+		@ApiResponse(responseCode = "1000", description = "성공")
+	})
+	@GetMapping("/search")
+	public BaseResponse<List<StaffSearch>> filterStaff(@RequestParam(required = false) Long companyId,
+											     @RequestParam(required = false) Long taskId,
+												@RequestParam(required = false) Long positionId) {
+		return new BaseResponse<>(staffService.filterStaff(companyId, taskId, positionId));
+	}
+
+	@Operation(summary = "직원 키워드 검색")
+	@ApiResponses({
+		@ApiResponse(responseCode = "1000", description = "성공")
+	})
+	@GetMapping("/keyword")
+	public BaseResponse<List<StaffRes>> searchKeyword(@RequestParam String query) {
+		return new BaseResponse<>(staffService.searchKeyword(query));
+	}
+
+
 
 }

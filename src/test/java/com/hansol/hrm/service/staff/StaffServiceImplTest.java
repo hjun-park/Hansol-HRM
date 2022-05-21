@@ -16,10 +16,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hansol.hrm.global.exception.BaseException;
-import com.hansol.hrm.service.staff.domain.Staff;
-import com.hansol.hrm.service.staff.domain.StaffMapper;
-import com.hansol.hrm.service.staff.dto.StaffDto;
-import com.hansol.hrm.service.staff.dto.StaffRes;
+import com.hansol.hrm.staff.service.StaffService;
+import com.hansol.hrm.staff.domain.Staff;
+import com.hansol.hrm.staff.domain.StaffMapper;
+import com.hansol.hrm.staff.dto.StaffDto;
+import com.hansol.hrm.staff.dto.StaffRes;
 
 @SpringBootTest
 // @TestInstance(TestInstance.Lifecycle.PER_CLASS)

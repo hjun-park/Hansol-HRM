@@ -15,10 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hansol.hrm.company.service.CompanyService;
 import com.hansol.hrm.global.exception.BaseException;
-import com.hansol.hrm.service.company.domain.Company;
-import com.hansol.hrm.service.company.domain.CompanyMapper;
-import com.hansol.hrm.service.company.dto.CompanyDto;
+import com.hansol.hrm.company.domain.Company;
+import com.hansol.hrm.company.domain.CompanyMapper;
+import com.hansol.hrm.company.dto.CompanyDto;
 
 @SpringBootTest
 // @TestInstance(TestInstance.Lifecycle.PER_CLASS)

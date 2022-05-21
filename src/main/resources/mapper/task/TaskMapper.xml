@@ -3,21 +3,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hansol.hrm.service.task.domain.TaskMapper">
+<mapper namespace="com.hansol.hrm.task.domain.TaskMapper">
 
 
-    <select id="findAll" resultType="com.hansol.hrm.service.task.domain.Task">
+    <select id="findAll" resultType="com.hansol.hrm.task.domain.Task">
         SELECT *
         FROM task
     </select>
 
-    <select id="findBy" resultType="com.hansol.hrm.service.task.domain.Task" parameterType="Long">
+    <select id="findBy" resultType="com.hansol.hrm.task.domain.Task" parameterType="Long">
         SELECT *
         FROM task
         WHERE id = #{taskId}
     </select>
 
-    <select id="findByString" resultType="com.hansol.hrm.service.task.domain.Task">
+    <select id="findByString" resultType="com.hansol.hrm.task.domain.Task">
         SELECT *
         FROM task
         <where>
@@ -33,7 +33,7 @@
         </where>
     </select>
 
-    <insert id="insertOne" parameterType="com.hansol.hrm.service.task.domain.Task" useGeneratedKeys="true"
+    <insert id="insertOne" parameterType="com.hansol.hrm.task.domain.Task" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
         INSERT INTO task(name, code)
         values (#{name}, #{code})
