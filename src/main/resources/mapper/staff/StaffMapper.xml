@@ -3,29 +3,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hansol.hrm.service.staff.domain.StaffMapper">
+<mapper namespace="com.hansol.hrm.staff.domain.StaffMapper">
 
-    <select id="findAll" resultType="com.hansol.hrm.service.staff.domain.Staff">
+    <select id="findAll" resultType="com.hansol.hrm.staff.domain.Staff">
         SELECT *
         FROM staff
         WHERE status = 'USED'
     </select>
 
-    <select id="findById" resultType="com.hansol.hrm.service.staff.domain.Staff">
+    <select id="findById" resultType="com.hansol.hrm.staff.domain.Staff">
         SELECT *
         FROM staff
         WHERE id = #{staffId}
           AND status = 'USED';
     </select>
 
-    <select id="findByName" resultType="com.hansol.hrm.service.staff.domain.Staff">
+    <select id="findByName" resultType="com.hansol.hrm.staff.domain.Staff">
         SELECT *
         FROM staff
         WHERE name LIKE CONCAT('%', #{name}, '%')
           AND status = 'USED';
     </select>
 
-    <insert id="insertOne" parameterType="com.hansol.hrm.service.staff.domain.Staff" useGeneratedKeys="true"
+    <insert id="insertOne" parameterType="com.hansol.hrm.staff.domain.Staff" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id"><!-- useGeneratedKeys="true" -->
         INSERT INTO staff(name, phone_number, type, task_id, position_id)
         values (#{name}, #{phoneNumber}, #{type}, #{taskId}, #{positionId})
@@ -51,7 +51,7 @@
 
 
     <!-- 타입별 검색 쿼리 (이름, 전화번호, 업무 종류)-->
-    <select id="search" resultType="com.hansol.hrm.service.staff.domain.Staff">
+    <select id="search" resultType="com.hansol.hrm.staff.domain.Staff">
         SELECT *
         FROM staff
         <where>
@@ -68,7 +68,7 @@
     </select>
 
     <!-- 필터링 (회사, 직무(업무), 직급) -->
-    <select id="filterStaff" resultType="com.hansol.hrm.service.staff.domain.StaffSearch">
+    <select id="filterStaff" resultType="com.hansol.hrm.staff.domain.StaffSearch">
         SELECT s.name as staff_name, phone_number, type, t.name as task_name, csr.name as company_name, code, p.name as position_name
         FROM staff s
 <!--        <if test="positionId != null and positionId != ''">-->
@@ -104,7 +104,7 @@
     </select>
 
     <!-- 키워드검색 (이름, 직업종류) -->
-    <select id="searchKeyword" resultType="com.hansol.hrm.service.staff.domain.Staff">
+    <select id="searchKeyword" resultType="com.hansol.hrm.staff.domain.Staff">
         select *
         from staff
         where name = #{keyword}

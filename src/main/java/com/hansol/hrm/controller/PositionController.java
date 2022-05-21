@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hansol.hrm.global.response.BaseResponse;
-import com.hansol.hrm.service.position.PositionService;
-import com.hansol.hrm.service.position.dto.PositionDto;
+import com.hansol.hrm.position.service.PositionService;
+import com.hansol.hrm.position.dto.PositionDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

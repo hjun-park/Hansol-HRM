@@ -16,9 +16,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hansol.hrm.global.exception.BaseException;
-import com.hansol.hrm.service.position.domain.Position;
-import com.hansol.hrm.service.position.dto.PositionDto;
-import com.hansol.hrm.service.position.domain.PositionMapper;
+import com.hansol.hrm.position.service.PositionService;
+import com.hansol.hrm.position.domain.Position;
+import com.hansol.hrm.position.dto.PositionDto;
+import com.hansol.hrm.position.domain.PositionMapper;
 
 @SpringBootTest
 // @TestInstance(TestInstance.Lifecycle.PER_CLASS)

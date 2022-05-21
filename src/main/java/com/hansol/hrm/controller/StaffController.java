@@ -1,6 +1,5 @@
 package com.hansol.hrm.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -15,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hansol.hrm.global.response.BaseResponse;
-import com.hansol.hrm.service.staff.StaffService;
-import com.hansol.hrm.service.staff.domain.StaffSearch;
-import com.hansol.hrm.service.staff.dto.StaffDto;
-import com.hansol.hrm.service.staff.dto.StaffRes;
+import com.hansol.hrm.staff.service.StaffService;
+import com.hansol.hrm.staff.domain.StaffSearch;
+import com.hansol.hrm.staff.dto.StaffDto;
+import com.hansol.hrm.staff.dto.StaffRes;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
