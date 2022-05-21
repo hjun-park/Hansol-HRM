@@ -22,4 +22,7 @@ public interface StaffMapper {
 
 	List<Staff> findByName(String name);
 
+	List<StaffSearch> filterStaff(@Param("companyId") Long companyId, @Param("taskId") Long taskId, @Param("positionId") Long positionId);
+
+	List<Staff> searchKeyword(String keyword);
 }

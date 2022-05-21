@@ -50,34 +50,66 @@
     </update>
 
 
-<!--    &lt;!&ndash; 타입별 검색 쿼리 (이름, 전화번호, 업무 종류)&ndash;&gt;-->
-<!--    <select id="search" resultType="com.hansol.hrm.service.staff.domain.Staff">-->
-<!--        SELECT *-->
-<!--        FROM staff-->
-<!--        <where>-->
-<!--            <if test="searchType == 'N'">-->
-<!--                name LIKE CONCAT('%', #{_str}, '%')-->
-<!--            </if>-->
-<!--            <if test="searchType == 'P'">-->
-<!--                phone_number LIKE CONCAT('%', #{_str}, '%')-->
-<!--            </if>-->
-<!--            <if test="searchType == 'T'">-->
-<!--                type LIKE CONCAT('%', #{_str}, '%')-->
-<!--            </if>-->
-<!--        </where>-->
-<!--    </select>-->
+    <!-- 타입별 검색 쿼리 (이름, 전화번호, 업무 종류)-->
+    <select id="search" resultType="com.hansol.hrm.service.staff.domain.Staff">
+        SELECT *
+        FROM staff
+        <where>
+            <if test="searchType == 'N'">
+                name LIKE CONCAT('%', #{_str}, '%')
+            </if>
+            <if test="searchType == 'P'">
+                phone_number LIKE CONCAT('%', #{_str}, '%')
+            </if>
+            <if test="searchType == 'T'">
+                type LIKE CONCAT('%', #{_str}, '%')
+            </if>
+        </where>
+    </select>
 
-<!--    &lt;!&ndash; 필터링 (회사, 직무(업무), 직급) &ndash;&gt;-->
-<!--    <select id="filter" resultType="com.hansol.hrm.service.staff.domain.Staff">-->
-<!--        SELECT s.id, s.name, s.phone_number, s.type, s.task_id, s.position_id-->
-<!--        FROM staff s-->
-<!--            <if test="filterType == 'C'">-->
-<!--                 LEFT JOIN positions p ON s.position_id = p.id-->
-<!--            </if>-->
-<!--        WHERE p.id = 1;-->
-<!--    </select>-->
+    <!-- 필터링 (회사, 직무(업무), 직급) -->
+    <select id="filterStaff" resultType="com.hansol.hrm.service.staff.domain.StaffSearch">
+        SELECT s.name as staff_name, phone_number, type, t.name as task_name, csr.name as company_name, code, p.name as position_name
+        FROM staff s
+<!--        <if test="positionId != null and positionId != ''">-->
+            left join positions p
+                on s.position_id = p.id
+<!--        </if>-->
+<!--        <if test="positionId != null and positionId != ''">-->
+            left join task t
+                on s.task_id = t.id
+<!--        </if>-->
+<!--        <if test="companyId != null and companyId != ''">-->
+            left join (
+                select staff_id, name, company_id
+                from company_staff cs
+                inner join company c
+                   on cs.company_id = c.id
+            ) csr
+            on csr.staff_id = s.id
+<!--        </if>-->
 
-    <!-- 기간 검색 -->
+        <where>
+            status = 'USED'
+            <if test="positionId != null and positionId != ''">
+                AND s.position_id = #{positionId}
+            </if>
+            <if test="taskId != null and taskId != ''">
+                AND s.task_id = #{taskId}
+            </if>
+            <if test="companyId != null and companyId != ''">
+                AND csr.company_id = #{companyId}
+            </if>
+        </where>
+    </select>
+
+    <!-- 키워드검색 (이름, 직업종류) -->
+    <select id="searchKeyword" resultType="com.hansol.hrm.service.staff.domain.Staff">
+        select *
+        from staff
+        where name = #{keyword}
+          or type LIKE CONCAT('%', #{keyword}, '%');
+    </select>
 
 
 </mapper>

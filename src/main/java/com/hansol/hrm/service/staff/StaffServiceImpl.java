@@ -16,6 +16,7 @@ import com.hansol.hrm.service.position.PositionService;
 import com.hansol.hrm.service.position.dto.PositionDto;
 import com.hansol.hrm.service.staff.domain.Staff;
 import com.hansol.hrm.service.staff.domain.StaffMapper;
+import com.hansol.hrm.service.staff.domain.StaffSearch;
 import com.hansol.hrm.service.staff.dto.StaffDto;
 import com.hansol.hrm.service.staff.dto.StaffRes;
 import com.hansol.hrm.service.task.TaskService;
@@ -106,6 +107,24 @@ public class StaffServiceImpl implements StaffService {
 			throw new BaseException(DELETE_ERROR);
 		}
 
+	}
+
+	@Override
+	public List<StaffSearch> filterStaff(Long companyId, Long taskId, Long positionId) {
+
+		Optional<List<StaffSearch>> staffSearches = Optional.ofNullable(staffMapper.filterStaff(companyId, taskId, positionId));
+		return staffSearches.orElseGet(Collections::emptyList);
+
+	}
+
+	@Override
+	public List<StaffRes> searchKeyword(String keyword) {
+		Optional<List<Staff>> optionalStaffList = Optional.ofNullable(staffMapper.searchKeyword(keyword));
+		List<Staff> staffList = optionalStaffList.orElseGet(Collections::emptyList);
+
+		return staffList.stream()
+			.map(this::convertEntityToDto)
+			.collect(Collectors.toList());
 	}
 
 	private StaffRes convertEntityToDto(Staff staff) {
